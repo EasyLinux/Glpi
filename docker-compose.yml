@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+
+  # MariaDb Container
+  GlpiDB:
+    image: easylinux/mariadb
+    volumes:
+      - /Data/Docker/Db/GlpiDB:/var/lib/mysql
+
+  # Glpi Container
+  GlpiApp:
+    image: easylinux/glpi
+    depends_on:
+      - GlpiDB
+    volumes:
+      - /Data/Docker/Web/Glpi:/var/www/html/files
+

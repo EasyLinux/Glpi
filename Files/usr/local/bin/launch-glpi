@@ -1,0 +1,25 @@
+#!/bin/sh
+
+if [ -f /var/www/config/config_db.php ];then
+   # Glpi is already configured
+   echo "Glpi OK"
+   echo "Removing /var/www/install/*"
+   rm -rf /var/www/install
+else
+   # Glpi will be installed !
+   echo "Please verify that you have linked volumes !"
+   ## Files structure
+   echo "Create file structure..."
+   for f in _cache _cron _dumps _graphs _lock _log _pictures _plugins _rss _sessions _tmp _uploads _config; do
+      dir="/var/www/files/$f"
+      if [ ! -d "$dir" ]; then
+         mkdir -p "$dir"
+         chown nginx: $dir
+         chmod 770 $dir
+      fi
+   done
+   rm /var/www/config
+   ln -s /var/www/files/_config /var/www/config
+   chown nginx: /var/www/config
+fi
+/usr/bin/supervisord -c /etc/supervisord.conf
