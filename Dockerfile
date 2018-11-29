@@ -64,5 +64,4 @@ WORKDIR "/var/www"
 HEALTHCHECK --interval=5s --timeout=3s --retries=3 \
     CMD curl --silent --fail http://localhost:80 || exit 1
 
-COPY launch-glpi /usr/local/bin/launch-glpi
 CMD ["/usr/local/bin/launch-glpi"]
