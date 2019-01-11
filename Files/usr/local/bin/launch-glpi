@@ -22,4 +22,4 @@ else
    ln -s /var/www/files/_config /var/www/config
    chown nginx: /var/www/config
 fi
-/usr/bin/supervisord -c /etc/supervisord.conf
+exec /usr/bin/supervisord -c /etc/supervisord.conf
